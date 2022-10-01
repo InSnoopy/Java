@@ -1,0 +1,25 @@
+package kr.or.ddit.basic;
+
+import javax.swing.JOptionPane;
+
+public class T06ThreadTest {
+/*
+	입력여부를 확인하기 위한 변수 선언
+	(모든 스레드에서 공통으로 사용할 변수)
+ */
+	public static boolean inputCheck = false;
+	
+	public static void main(String[] args) {
+		
+	}
+}
+
+class DataInput extends Thread{
+	
+	@Override
+	public void run() {
+		String str = JOptionPane.showInputDialog("아무거나 입력하세요.");
+		System.out.println("입력한 값은 " + str + "입니다.");
+	}
+	
+}

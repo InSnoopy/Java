@@ -1,0 +1,10 @@
+package kr.or.ddit.basic;
+
+import java.util.Map;
+
+public class T08HashMapTest {
+	public static void main(String[] args) {
+		
+		Map<String, String>
+	}
+}

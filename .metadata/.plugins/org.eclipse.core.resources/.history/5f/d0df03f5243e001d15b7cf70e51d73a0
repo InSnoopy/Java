@@ -1,0 +1,9 @@
+package kr.or.ddit.basic;
+
+class Util{
+	
+}
+
+public class T02GenericMethodTest {
+
+}

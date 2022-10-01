@@ -1,0 +1,41 @@
+package kr.or.ddit.basic;
+
+public class T05WildCardTest {
+	public static void main(String[] args) {
+		
+	}
+}
+
+class Food{
+	
+	private String name; // 음식 이름
+	private int price;   // 가격
+	
+	public Food(String name, int price) {
+		super();
+		this.name = name;
+		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		return this.name + "(" + this.price + "원)";
+	}
+		
+}
+
+class Meat extends Food{
+
+	public Meat(String name, int price) {
+		super(name, price);
+	}
+	
+}
+
+class Drink extends Food{
+
+	public Drink(String name, int price) {
+		super(name, price);
+	}
+	
+}

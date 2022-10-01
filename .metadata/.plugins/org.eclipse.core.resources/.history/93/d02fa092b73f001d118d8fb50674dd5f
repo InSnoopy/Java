@@ -1,0 +1,65 @@
+package kr.or.ddit.basic;
+/**
+ * 멀티스레드 프로그램 생성 예제
+ */
+public class T02ThreadTest {
+	public static void main(String[] args) {
+		
+		// 방법1: Thread 클래스를 상속한 class의 인스턴스를 생성한 후
+		//       이 인스턴스의 start()메서드를 호출한다.
+		Thread th1 = new MyThread1();
+		// *이 나오는게 'MyThread1' 이 작업중인거다. 이때 main()스레드는 저것만 부르고 역할은 끝
+		th1.start();
+		// run()은 run이라는 메소드만 실행 시키는것이다.
+		// th1.run();
+		
+		// 방법2: Runnable인터페이스를 구현한 class의 인스턴스를 생성한 후 
+		//       이 인스턴스를 Thread객체의 인스턴스를 생성할 때 생성자의
+		//       파라미터로 넘겨준다.
+		//       이렇게 생성된 인스턴스의 start()메서드를 호출한다.
+	}
+}
+
+/*
+ * Thread클래스를 상속 받으면 내가 만든 클래스도 Thread클래스가 된다.
+ */
+class MyThread1 extends Thread {
+	
+	// 싱글 스레드는 항상 main()메소드에서 실행 된 것처럼
+	// 멀티 슬레드는 run()메소드로 실행된다.
+	@Override
+	public void run() {
+		
+		for(int i=1; i<=200; i++) {
+			System.out.print("*");	
+			try {
+				// Thread.sleep(시간) => 주어신 시간만큼 잠시 멈춘다.
+				// 시간은 밀리세컨드 단위이다.
+				// (즉, 1000ms = 1초)
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+}
+
+class MyThread2 implements Runnable{
+
+	
+	@Override
+	public void run() {
+		
+		for(int i=1; i<=200; i++) {
+			System.out.print("$");	
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}	
+	}
+	
+	
+}

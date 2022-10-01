@@ -1,0 +1,12 @@
+package kr.or.ddit.basic;
+
+import java.lang.reflect.Method;
+
+public class AnnotationTest {
+	public static void main(String[] args) {
+		
+		// 선언된 메서드 목록을 조회하고, 메서드를 실행해 보기
+		Method[] methodArr = Service.class.getDeclaredMethods();
+		
+	}
+}

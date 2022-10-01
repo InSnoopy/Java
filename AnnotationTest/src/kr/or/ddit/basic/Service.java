@@ -1,0 +1,24 @@
+package kr.or.ddit.basic;
+
+import java.io.Serializable;
+
+public class Service implements Serializable{	
+	
+	// @PrintAnnotation() -> ()을 생략 가능
+	@PrintAnnotation // 아무것도 설정 안하게 되면 설정한 'default'값으로 들어간다.
+	public void method1() throws Exception {
+		System.out.println("메서드1에서 출력되었습니다.");
+	}
+	
+	// ("%")로 value는 생략이 가능하다.
+	@PrintAnnotation(value = "%")
+	public void method2() {
+		System.out.println("메서드2에서 출력되었습니다.");
+	}
+	
+	@PrintAnnotation(value = "#", count = 25)
+		public void method3() {
+		System.out.println("메서드3에서 출력되었습니다.");
+	}
+	
+}

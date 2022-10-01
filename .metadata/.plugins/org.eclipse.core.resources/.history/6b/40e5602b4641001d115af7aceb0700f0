@@ -1,0 +1,11 @@
+package kr.or.ddit.basic;
+
+public class RaceGame {
+
+	public static void main(String[] args) {
+		
+	}
+}
+
+
+

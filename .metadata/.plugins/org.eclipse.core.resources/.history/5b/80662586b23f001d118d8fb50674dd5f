@@ -1,0 +1,11 @@
+package kr.or.ddit.basic;
+
+public class PlanetTest {
+	public static void main(String[] args) {
+		System.out.println(Planet.목성.getRadius());
+		
+		Planet x = Planet.목성;
+		x.area(Planet.목성.getRadius());
+		System.out.println(x.area(Planet.목성.getRadius()));
+	}
+}

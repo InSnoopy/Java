@@ -1,0 +1,15 @@
+package kr.or.ddit.basic;
+
+public class T04ThreadTest {
+	public static void main(String[] args) {
+	/*
+	 * 1~20억까지의 합계를 구하는데 걸린 시간 체크하기
+	 * 
+	 * 전체 합계를 구하는 작업을 단독스레드로 하는 경우와 여러개의 스레드로
+	 * 분할해서 처리하는 경우의 시간을 확인해 보기
+	 */
+		
+		
+		
+	}
+}

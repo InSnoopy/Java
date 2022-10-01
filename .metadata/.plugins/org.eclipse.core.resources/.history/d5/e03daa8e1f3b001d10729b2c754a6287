@@ -1,0 +1,70 @@
+package lotto;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Random;
+
+public class LottoProgram{
+	
+	// 필드
+	private HashSet lottoBox;
+	
+	
+	// 메서드
+	/*
+	 * 로또 1~45 숫자중에 6개의 숫자가 랜덤으로 출력되는 프로그램
+	 * lottoBox에 저장 된다.
+	 */
+	public void lottoMachine(){
+		
+		Random random = new Random();
+		this.lottoBox = new HashSet();
+		
+		for(int i=0; i<6; i++) {
+			
+			int randomNum = random.nextInt(45)+1;
+			boolean isAdded1 = lottoBox.add(randomNum);	
+			if(isAdded1) {
+
+			}else {
+				i--;
+			}
+		}	
+	}
+	
+	
+	/*
+	 * 
+	 */
+	public void lottoWin(int userNum) {
+		Iterator it = getLottoBox().iterator();
+		
+		while(it.hasNext()) {
+			if(it.next().equals(userNum)) {
+				System.out.println("맞추셨습니다.");
+			}else {
+				System.out.println("틀렸습니다.");
+			}
+		}
+		
+	}
+	
+
+	
+	
+
+
+	public HashSet getLottoBox() {
+		return lottoBox;
+	}
+
+	public void setLottoBox(HashSet lottoBox) {
+		this.lottoBox = lottoBox;
+	}
+	
+	
+	
+	
+	
+}
+

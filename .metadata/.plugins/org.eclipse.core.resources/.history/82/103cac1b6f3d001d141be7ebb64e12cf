@@ -1,0 +1,10 @@
+package hotel;
+
+public class HotelVO {
+
+	private String guestRoom; 
+	private String gusetName;
+	
+	
+	
+}

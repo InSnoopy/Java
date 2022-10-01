@@ -1,0 +1,16 @@
+package kr.or.ddit.basic;
+
+public class T12ThreadYieldTest {
+/*
+ 	yield() 메서드에 대하여...
+ 	
+ 	1. 현재 실행 대기중인 동등한 우선순위 이상의 다른 스레드에게  실행기회를 제공한다.(양보)
+ 	2. 현재 실행중인 스레드의 상태를 Runnable 상태로 바꾼다.
+ 	3. yield()메서드를 실행한다고 해서 현재 실행중인 스레드가 곧바로 Runnable 상태로 
+ 	     전이된다고 확신할 수는 없다.
+ 	
+ */
+	public static void main(String[] args) {
+		
+	}
+}

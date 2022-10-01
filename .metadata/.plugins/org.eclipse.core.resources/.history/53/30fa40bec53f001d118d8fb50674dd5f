@@ -1,0 +1,10 @@
+package kr.or.ddit.basic;
+
+public class T06ThreadTest {
+/*
+	입력여부를 확인하기 위한 변수 선언
+ */
+	public static void main(String[] args) {
+		
+	}
+}

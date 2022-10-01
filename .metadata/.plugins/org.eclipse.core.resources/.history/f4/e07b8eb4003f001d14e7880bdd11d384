@@ -1,0 +1,40 @@
+package kr.or.ddit.reflction;
+
+import java.lang.reflect.Method;
+
+/**
+ * 클래스에 선언된 메서드의 메타정보 가져오기 
+ */
+public class T03MethodMetadataTest {
+	public static void main(String[] args) throws ClassNotFoundException {
+		
+		// Class 객체 생성하기
+		Class<?> klass = Class.forName("kr.or.ddit.basic.Service");
+		
+		// 클래스에 선언된 모든 메서드의 메타데이터 정보 가져오기
+		Method[] methodArr = klass.getDeclaredMethods();
+		
+		for(Method m : methodArr) {
+			System.out.println("메서드명 : " + m.getName());
+			System.out.println("메서드 리턴타입 : " + m.getReturnType());
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+	
+}

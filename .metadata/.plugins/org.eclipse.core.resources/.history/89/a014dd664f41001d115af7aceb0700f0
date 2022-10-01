@@ -1,0 +1,112 @@
+package kr.or.ddit.basic;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/*
+10마리의 말들이 경주하는 경마 프로그램 작성하기
+
+말은 Horse라는 이름의 클래스로 구성하고,
+이 클래스는 말이름(String), 등수(int)를 멤버변수로 갖는다.
+그리고, 이 클래스에는 등수를 오름차순으로 처리할 수 있는
+기능이 있다.( Comparable 인터페이스 구현)
+
+경기 구간은 1~50구간으로 되어 있다.
+
+경기 중 중간중간에 각 말들의 위치를 >로 나타내시오.
+예)
+1번말 --->------------------------------------
+2번말 ----->----------------------------------
+...
+
+경기가 끝나면 등수를 기준으로 정렬하여 출력한다.
+ 
+ */
+
+public class RaceGame {
+
+	public static void main(String[] args) {
+		
+		List<Horse> horseList = new ArrayList<Horse>();
+		List<String> horseLine = new ArrayList<>() ;
+		
+		horseList.add(new Horse("인말"));
+		horseList.add(new Horse("호말"));
+		horseList.add(new Horse("혜말"));
+
+		System.out.println("1번말 : "); 
+		System.out.println("2번말 : "); 
+		System.out.println("3번말 : "); 
+		
+		
+		for(Thread th : horseList) {
+			th.start();
+		}
+		
+	}
+}
+
+// 말 클래스
+class Horse extends Thread {
+	
+	// 필드
+	private String horseName;
+	private int rank;
+	
+	
+	// 생성자
+	public Horse(String horseName) {
+		this.horseName = horseName;
+	}
+	
+	// getter, setter
+	public String getHorseName() {
+		return horseName;
+	}
+	public void setHorseName(String horseName) {
+		this.horseName = horseName;
+	}
+	
+	@Override
+	public void run() {
+		
+		for(int i=0; i<10; i++) {
+			
+			System.out.print("-");
+			
+			try {
+				Thread.sleep((int) (Math.random() * 301 + 200));
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+}
+
+// 경기장 클래스
+//class Racetrack extends Thread{
+//	
+//	private List<Horse> horseList;
+//	
+//	
+//	
+//	public Racetrack(List<Horse> horseList) {
+//		this.horseList = horseList;
+//	}
+//
+//
+//	@Override
+//	public void run() {
+//	
+//		System.out.println("----------------");
+//		for(int i=0; i<horseList.size(); i++) {
+//			System.out.print(horseList.get(i).getHorseName() + " : ");
+//			horseList.get(i).start();
+//		}
+//		
+//	
+//	}
+//}
+

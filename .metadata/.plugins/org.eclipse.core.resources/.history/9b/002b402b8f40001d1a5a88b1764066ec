@@ -1,0 +1,84 @@
+package kr.or.ddit.basic;
+
+public class T13ThreadStopTest {
+	public static void main(String[] args) {
+		
+//		ThreadStopEx1 th1 = new ThreadStopEx1();
+//		th1.start();
+//		
+//		try {
+//			Thread.sleep(1000);
+//		} catch (InterruptedException e) {
+//			// Interrupted : 방해하다
+//			e.printStackTrace();
+//		}
+//		
+//		// 스레드 자체를 그냥 꺼버린다. stop()메소드는 비추천한다.
+//		// th1.stop();
+//		
+//		// 
+//		th1.setStop(true);
+		
+		ThreadStopEx2 th2 = new ThreadStopEx2();
+		th2.start();
+		
+
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// 메인이 th2에 interrupt
+		th2.interrupt();
+		
+	}
+}
+
+class ThreadStopEx1 extends Thread{
+	
+	private boolean stop;
+
+	public void setStop(boolean stop) {
+		this.stop = stop;
+	}
+
+	@Override
+	public void run() {
+		
+		while(!stop) {
+			System.out.println("스레드 처리중...");
+		}
+		System.out.println("자원 정리 중...");
+		System.out.println("실행 종료.");
+	}
+}
+
+/**
+ * interrupt() 메서드를 이용하여 스레드를 멈추게 하는 방법
+ */
+class ThreadStopEx2 extends Thread{
+	
+	@Override
+	public void run() {
+	// 방법1 => sleep()메서드나 join()메서드 등을 사용했을 때
+	//		   interrupt()메서드를 호출하면 InterruptedException 이 발생한다.
+
+		try {
+			//	try안에서 예외가 발생하면 
+			//	catch로 빠져나가게 한다.
+			while(true) {				
+				System.out.println("스레드 처리 중...");
+				// sleep하고 있을 때 예외가 발생한다.
+				Thread.sleep(1);
+			}
+		}catch(InterruptedException e) {
+			
+		}
+		
+		System.out.println("자원 정리 중...");
+		System.out.println("실행 종료.");
+		
+	}
+}

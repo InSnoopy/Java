@@ -1,0 +1,7 @@
+package kr.or.ddit.basic;
+/**
+ * 단일 스레드에서의 사용자 입력 처리
+ */
+public class T05ThreadTest {
+
+}

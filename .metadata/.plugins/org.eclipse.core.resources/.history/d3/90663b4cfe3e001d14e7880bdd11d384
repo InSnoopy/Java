@@ -1,0 +1,8 @@
+package kr.or.ddit.reflction;
+
+// 정보에 대한 정보 : 메타정보 
+// class에 대한 정보에 대한 정보
+public class T02ClassMetadataTest {
+	
+	main
+}

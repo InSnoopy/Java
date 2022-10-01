@@ -1,0 +1,86 @@
+package kr.or.ddit.basic;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class T05WildCardTest {
+	
+	// 장바구니
+	
+	
+	
+	
+	
+	
+	public static void main(String[] args) {
+		
+	}
+}
+
+
+class Food{
+	
+	private String name; // 음식 이름
+	private int price;   // 가격
+	
+	public Food(String name, int price) {
+		super();
+		this.name = name;
+		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		return this.name + "(" + this.price + "원)";
+	}
+		
+}
+
+
+class Meat extends Food{
+
+	public Meat(String name, int price) {
+		super(name, price);
+	}
+	
+}
+
+
+class Drink extends Food{
+
+	public Drink(String name, int price) {
+		super(name, price);
+	}
+	
+}
+
+
+class Juice extends Drink{
+
+	public Juice(String name, int price) {
+		super(name, price);
+	}
+	
+}
+
+class Coffee extends Drink{
+
+	public Coffee(String name, int price) {
+		super(name, price);
+	}
+	
+}
+
+class Cart<T> {
+	private List<T> list = new ArrayList<T>();
+
+	public List<T> getList() {
+		return list;
+	}
+
+	public void add(T item) {
+		list.add(item);
+	}
+	
+	
+}

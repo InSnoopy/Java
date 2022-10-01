@@ -1,0 +1,18 @@
+package kr.or.ddit.basic;
+
+public class T13ThreadStopTest {
+	public static void main(String[] args) {
+		
+		
+	}
+}
+
+class ThreadSTopEx1 extends Thread{
+	
+	private boolean stop;
+	
+	@Override
+	public void run() {
+		
+	}
+}

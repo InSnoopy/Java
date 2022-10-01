@@ -1,0 +1,12 @@
+package kr.or.ddit.basic;
+
+public class T15SyncThreadTest {
+	public static void main(String[] args) {
+		
+	}
+}
+
+// 공통으로 사용할 객체
+class ShareObject{
+	private int sum = 0;
+}
