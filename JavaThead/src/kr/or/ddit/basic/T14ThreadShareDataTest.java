@@ -38,6 +38,7 @@ class ShareData{
 		
 		이 변수에서 만큼은 속도가 조금 느려져도 공용되는 변수로 가져오게 하라
 	 */
+	
 	volatile private boolean isOk = false; // 원주율 계산이 완료되었는지 확인용.
 	
 	public double getResult() {
