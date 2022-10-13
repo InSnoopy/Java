@@ -1,5 +1,9 @@
 package hotel;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -7,6 +11,11 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class HotelTest {
+	
+	private Connection conn;
+	private Statement stmt;
+	private PreparedStatement pstmt;
+	private ResultSet rs;
 	
 	private Scanner scan;
 	private Map<String, HotelVO> hotelMap;
@@ -17,7 +26,6 @@ public class HotelTest {
 	}
 	
 
-	
 	public void menu() {
 		System.out.println();
 		System.out.println("메뉴를 선택하세요.");
