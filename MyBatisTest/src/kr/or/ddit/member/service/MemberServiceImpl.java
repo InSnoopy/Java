@@ -3,7 +3,8 @@ package kr.or.ddit.member.service;
 import java.util.List;
 
 import kr.or.ddit.member.dao.IMemberDao;
-import kr.or.ddit.member.dao.MemberDaoImp;
+import kr.or.ddit.member.dao.MemberDaoImpl;
+import kr.or.ddit.member.dao.MemberDaoImplForJDBC;
 import kr.or.ddit.member.vo.MemberVO;
 
 public class MemberServiceImpl implements IMemberService{
@@ -12,7 +13,7 @@ public class MemberServiceImpl implements IMemberService{
 	private IMemberDao memDao;
 	
 	private MemberServiceImpl() {
-		memDao = MemberDaoImp.getInstance();
+		memDao = MemberDaoImpl.getInstance();
 	}
 	
 	public static IMemberService getInstance() {

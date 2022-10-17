@@ -1,0 +1,60 @@
+package kr.or.ddit.member.dao;
+
+import java.util.List;
+
+import kr.or.ddit.comm.dao.MyBatisDAO;
+import kr.or.ddit.member.vo.MemberVO;
+
+public class MemberDaoImpl extends MyBatisDAO implements IMemberDao{
+
+	private static IMemberDao memDao;
+	
+	private MemberDaoImpl() {}
+	public static IMemberDao getInstance() {
+		if (memDao == null) {
+			memDao = new MemberDaoImpl();
+		}
+		return memDao;
+	}
+	
+	@Override
+	public int insertMember(MemberVO mv) {
+		return insert("member.insertMember", mv);
+	}
+
+	@Override
+	public boolean checkMember(String memId) {
+		
+		boolean isExist = false;
+		
+		int cnt = (int) selectOne("member.checkMember", memId);
+		// TODO Auto-generated method stub
+		if(cnt > 0) {
+			isExist = true;
+		}
+		
+		return isExist;
+	}
+
+	@Override
+	public int updateMember(MemberVO mv) {
+		return update("member.updateMember", mv);
+	}
+
+	@Override
+	public int deleteMember(String memId) {
+		return delete("member.deleteMember", memId);
+	}
+
+	@Override
+	public List<MemberVO> listMember() {
+		return selectList("member.listMember", null);
+	}
+
+	@Override
+	public List<MemberVO> searchMember(MemberVO mv) {
+		
+		return selectList("member.searchMember",mv);
+	}
+
+}

@@ -12,15 +12,15 @@ import java.util.List;
 import kr.or.ddit.member.vo.MemberVO;
 import kr.or.ddit.util.JDBCUtil3;
 
-public class MemberDaoImp implements IMemberDao{
+public class MemberDaoImplForJDBC implements IMemberDao{
 
 	private static IMemberDao memDao;
-	private MemberDaoImp() {
+	private MemberDaoImplForJDBC() {
 		
 	}
 	public static IMemberDao getInstance() {
 		if(memDao == null) {
-			memDao = new MemberDaoImp();
+			memDao = new MemberDaoImplForJDBC();
 		}
 		return memDao;
 	}

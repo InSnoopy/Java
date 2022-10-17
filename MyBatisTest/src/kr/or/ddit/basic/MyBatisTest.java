@@ -3,6 +3,8 @@ package kr.or.ddit.basic;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.io.Resources;
@@ -100,12 +102,12 @@ public class MyBatisTest {
 			
 			if(cnt > 0) {
 				System.out.println("update작업 성공.");
+				// 명시적으로 커밋을 해줘야한다.
+				sqlSession.commit(); // 커밋
 			}else {
 				System.out.println("update작업 실패.");				
 			}
 			
-			// 명시적으로 커밋을 해줘야한다.
-			sqlSession.commit(); // 커밋
 			
 		}catch(PersistenceException ex) {
 			// 트랜잭션 관리
@@ -115,6 +117,96 @@ public class MyBatisTest {
 			// 커넥션 풀 방식이라 커넥션을 완전 종료하는게 아니라 다시 풀로 반납하는 것이다.
 			sqlSession.close(); // 세션 종료
 		}
+		
+		
+		// 2-3 delete 연습
+		System.out.println("delete 작업 시작...");
+		sqlSession = sqlSessionFactory.openSession();
+		
+		try {
+			
+			// delete메서드의 반환값 : 성공한 레코드 수
+			int cnt = sqlSession.delete("memberTest.deleteMember", "d001");
+			
+			if(cnt > 0) {
+				System.out.println("delete 작업 성공.");
+			}else {
+				System.out.println("delete 작업 실패.");				
+			}
+			
+			sqlSession.commit();
+			
+		}catch(Exception ex) {
+			sqlSession.rollback();
+			throw new RuntimeException("삭제 중 예외발생!!", ex);
+		}finally {
+			sqlSession.close();
+		}
+		
+		
+		// 2-4. selete 연습
+		// 그냥 JDBC인 경우 여러개인 경우 담을 List를 생성해서 담는다.
+		// 1개의 경우 result만 리턴하면 되고 여러개일 경우 List를 생성해서 담았었다.
+		// 1) 응답의 결과가 여러개일 경우...
+		System.out.println("select연습(결과가 여러개인 경우...)...");
+		
+		sqlSession = sqlSessionFactory.openSession();
+		
+		List<MemberVO> memList = new ArrayList<MemberVO>();
+		
+		// 응답결과가 여러개인 경우에는 selectList 메서드를 사용한다.
+		try {
+			
+			memList = sqlSession.selectList("memberTest.listMember");
+			
+			if(memList.size() == 0) {
+				System.out.println("조회된 정보가 없습니다.");
+			}else {
+				for(MemberVO mv3 : memList) {
+					System.out.println("ID : " + mv3.getMemId());
+					System.out.println("이름 : " + mv3.getMemName());
+					System.out.println("전화 : " + mv3.getMemTel());
+					System.out.println("주소 : " + mv3.getMemAddr());
+					System.out.println("-------------------------");
+				}				
+			}
+			
+			
+			System.out.println("출력 끝...");
+			
+		}finally {
+			sqlSession.close();
+		}
+		
+		// 2) 응답의 결과가 1개일 경우...
+		System.out.println("select연습(결과가 1개인 경우...)");
+		
+		sqlSession = sqlSessionFactory.openSession();
+		
+		// 응답결과가 1개일 경우에는 selectOne() 메서드를 사용한다.
+		
+		try {
+			
+			MemberVO mv4 = (MemberVO) sqlSession.selectOne("memberTest.selectMember", "a001");
+			
+			if(memList.size() == 0) {
+				System.out.println("조회된 정보가 없습니다.");
+			}else {
+
+				System.out.println("ID : " + mv4.getMemId());
+				System.out.println("이름 : " + mv4.getMemName());
+				System.out.println("전화 : " + mv4.getMemTel());
+				System.out.println("주소 : " + mv4.getMemAddr());
+				System.out.println("-------------------------");
+							
+			}
+		
+		}finally {
+			sqlSession.close();
+		}
+		
+		
+		
 		
 		
 		
