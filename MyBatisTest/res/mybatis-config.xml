@@ -7,6 +7,11 @@
 
 	<properties resource="db.properties" />
 	
+	<settings>
+		<!-- DB 컬럼명을 낙타표기법으로 속성명과 자동 매핑 처리하기 -->
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+	
 	<typeAliases>
 		<!-- type을 적을떄 너무 길 경우 이렇게 타입의 별칭을 적어줄 수 있다. -->
 		<typeAlias type="kr.or.ddit.member.vo.MemberVO" alias="MemberVO"></typeAlias>

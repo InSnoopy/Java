@@ -61,11 +61,20 @@
 	<!-- sql 속성 이름이랑 메서드 이름이랑 다를 경우 마이바티스가 연결 할 수 있도록 명칭을 만들어줘야한다. -->
  	<select id="listMember" resultType="kr.or.ddit.member.vo.MemberVO">
  	
+ 		<!-- 
  		SELECT mem_id as memId,
  			   mem_name as memName,
  			   mem_tel as memTel,
  			   mem_addr as memAddr
  	      FROM MYMEMBER
+ 		 -->
+ 		 <!-- 
+ 		 mybatis-config.xml에서  
+ 		 <setting name="mapUnderscoreToCamelCase" value="true"/>
+ 		 를 true로 설정함으로써 따로 별칭을 안붙어도 낙타기법으로 잘 읽어낸다.
+ 		 -->
+		 SELECT *
+	      FROM MYMEMBER
  	
 	</select>
 

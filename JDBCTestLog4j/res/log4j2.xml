@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </Console>
+    
+    <!-- FIle Appender 추가 -->
+    <File name="MyFile" fileName="Logs/app.Log">
+    	<PatternLayout>
+    		<Pattern>%d %-5p %c{1} [%t] %C{2} (%F:%L) - %m%n</Pattern>
+    	</PatternLayout>
+    </File>
+  </Appenders>
+
+  <Loggers>
+  	<!-- 여기에 로거 추가 -->
+  	<!-- 기본 level은 INFO지만 따로 Logger로 설정하게 되면 그 하위 레벨도 출력된다. -->
+  	<!-- <Logger name="로거네임" level="레벨"></Logger> -->
+  	<Logger name="log4jexam.sql" level="debug" additivity="false"><!-- additivity를 설정함으로써 중복되지 않게 한다. -->
+  		<AppenderRef ref="Console"/>
+  		<AppenderRef ref="MyFile"/>
+  	</Logger> <!-- 이렇게 계층형으로 전체 다 설정이 가능하다. -->
+  	<!-- <Logger name="log4jexam.sql.Query" level="debug"></Logger> -->
+  	<!-- <Logger name="log4jexam.sql.Parameter" level="debug"></Logger>  -->
+  	<Logger name="kr.or.ddit.basic.T01MemberInfoTest" level="debug"></Logger>
+  	
+	<!-- Root 에다가 설정해 놓으면 모든 log4j에 다 설정된다.-->
+    <Root level="info">
+ 		<!-- Appenders에 있는 것을 참조 -->
+ 		<!-- 기본으로 console로 설정 -->
+      <AppenderRef ref="Console"/>
+    </Root>
+  </Loggers>
+
+</Configuration>
+
+
+
+
+
