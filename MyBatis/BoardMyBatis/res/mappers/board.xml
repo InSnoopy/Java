@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board"> 
+
+<!-- 
+	이 영역에 SQL문에 맞는 태그를 사용하여 SQL문을 기술한다.
+	
+	사용할 수 있는 기본적인 태그들
+	
+	<select> ~~~ </select>
+	<insert> ~~~ </insert>
+	<update> ~~~ </update>
+	<delete> ~~~ </delete>
+	위 태그에서 사용되는 속성들
+	
+	1) id속성 : 해당 태그를 호출할 때 <mapper> 태그의 namespace와 연결하여 사용하는 이름.
+	2) parameterType 속성 : SQL문에 사용될 데이터가 들어있는 객체타입 지정
+						  (보통 VO클래스, 자바의 자료형이름 등이 사용됨.)
+						  (typeAlias로 지정한 alias명을 사용할 수 있다.)
+	3) resultType 속성 : selete문을 실행한 결과를 담을 객체타입을 지정한다.
+					      (보통 VO클래스, 자바의 자료형이름 등이 사용됨.)
+					      (typeAlias로 지정한 alias명을 사용할 수 있다.)
+	4) resultMap 속성 : 결과 레코드 컬럼명과 VO객체의 property명이 다를 경우에 적절한 매핑을 위해 사용한다.				     						  
+	
+ -->
+	<!-- 클래스 이름을 쓸때는 팩터리까지 다 써야한다. -->
+	<insert id="insertBoard" parameterType="BoardVO">
+	
+	    insert into jdbc_board
+	    (BOARD_NO, BOARD_TITLE, BOARD_WRITER, BOARD_DATE, BOARD_CONTENT)
+   		values (board_seq.NEXTVAL, #{boardTitle},#{boardWriter},sysdate,#{boardContent})
+	
+	</insert>
+	
+	<update id="updateBoard" parameterType="BoardVO">
+
+	    update jdbc_board
+	    set board_title = #{boardTitle},
+	    board_content = #{boardContent}
+	    where board_no =#{boardNo};
+	
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+	
+		DELETE jdbc_board
+		WHERE board_no = #{boardNo}
+	
+	</delete>
+	
+	<!-- selete는 return 타입이 resultType이기 때문에 resultType으로 작성한다. -->
+	<!-- setMem_Id 이라는 메서드가 없다.-->
+	<!-- sql 속성 이름이랑 메서드 이름이랑 다를 경우 마이바티스가 연결 할 수 있도록 명칭을 만들어줘야한다. -->
+ 	<select id="listBoard" resultType="BoardVO">
+ 	
+ 		select board_no as boardNo,
+ 			   board_title as boardTitle,
+ 			   board_writer as boardWriter,
+ 			   board_date as boardDate,
+ 			   board_content as boardContent
+ 		  from jdbc_board
+ 	
+	</select>
+
+	<select id="selectNo" parameterType="int" resultType="BoardVO">
+	
+ 		select board_no as boardNo,
+ 			   board_title as boardTitle,
+ 			   board_writer as boardWriter,
+ 			   board_date as boardDate,
+ 			   board_content as boardContent
+ 		  from jdbc_board
+ 		 where board_no = #{boardNo}
+	
+	</select>
+	
+	<select id="checkBoard" parameterType="int" resultType="int">
+	
+ 		SELECT count(*) as cnt
+ 	      FROM jdbc_board
+ 	     WHERE board_no = #{boardNo}
+	
+	</select>
+	
+	<!-- resultMap을 활용해서 속성이름이랑 메서드 이름이랑 맞춰주기 -->
+	<resultMap type="BoardVO" id="memMap">
+		<id column="board_no" property="boardNo"/>
+		<result column="board_title" property="boardTitle"/>
+		<result column="board_writer" property="boardWriter"/>
+		<result column="board_date" property="boardDate"/>
+		<result column="board_content" property="boardContent"/>
+	
+	</resultMap>
+	<!-- 동적쿼리 (다이나믹쿼리) 만들기 -->
+	<select id="searchBoard" parameterType="BoardVO" resultMap="memMap">
+	
+		SELECT * from jdbc_board where 1=1
+		<if test="boardTitle != null and boardTitle != ''">and board_title like '%' || #{boardTitle} || '%'</if>
+		<if test="boardWriter != null and boardWriter != ''">and board_writer = #{boardWriter}</if>
+		<if test="boardContent != null and boardContent != ''">and board_content like '%' || #{boardContent} || '%'</if>
+
+	</select>
+	
+</mapper>

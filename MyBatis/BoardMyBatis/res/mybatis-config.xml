@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<!-- 외부에 있는 정보를 가져온다. -->
+	<properties resource="db.properties" />
+	
+	<typeAliases>
+		<typeAlias type="board.vo.BoardVO" alias="BoardVO"></typeAlias>
+	</typeAliases>
+	
+	<!-- 밑에 id가 dev인것을 기본값으로 한다는 뜻 -->
+	<environments default="dev">
+	
+		<environment id="dev">
+			<transactionManager type="JDBC" />
+			<!-- 커넥션 풀에서 가져오는 방식 : POOLED -->
+			<dataSource type="POOLED">
+				<!-- db.properties에서 driver 정보를 가져옴 -->
+				<property name="driver" value="${driver}"/>
+				<property name="url" value="${url}"/>
+				<property name="username" value="${username}"/>
+				<property name="password" value="${password}"/>
+				<!-- 활성화된 최대 커넥션 수 -->
+				<property name="poolMaximumActiveConnections" value="2"/>
+				<!-- 비활성화된 최대 커넥션 수 -->
+				<property name="poolMaximumIdleConnections" value="2"/>
+			</dataSource>
+		</environment>
+		
+		<!-- id를 real, dev여러개로 만들어서 기본값을 설정할 수도 있다. -->
+
+		
+	</environments>
+
+	<!-- 쿼리를 담은 파일을 불러오는 역할 -->
+	<mappers>
+		<mapper resource="mappers/board.xml" />
+	</mappers>
+
+</configuration>  
