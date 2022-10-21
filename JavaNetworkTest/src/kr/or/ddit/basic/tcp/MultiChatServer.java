@@ -80,6 +80,25 @@ public class MultiChatServer {
 		sendMessage("[" + from + "]" + msg);
 	}
 	
+	
+	/**
+	 * target에게 귓속말을 보낸다.
+	 * @param msg
+	 * @param from
+	 * @param target
+	 */
+	public void sendMessage(String msg, String from, String target) {
+		
+			try {
+				DataOutputStream dos = 
+						new DataOutputStream(clients.get(target).getOutputStream());
+				dos.writeUTF("[" + from + "님의 귓속말 ]" + msg); // 메시지 전송하기
+				
+			}catch(IOException ex) {
+				ex.printStackTrace();
+			}
+	}
+	
 	// 서버에서 클라이언트로 메시지를 전송할 Thread클래스를 Inner클래스로
 	//  정의하면 부모(Outer)클래스의 멤버들을 직접 사용할 수 있다.
 	class ServerReceiver extends Thread{
@@ -125,7 +144,7 @@ public class MultiChatServer {
 				ex.printStackTrace();
 			}finally {
 				// 이 finally 영역이 실행된다는 것은 클라이언트의 접속이 종료되었다는 의미이다.
-				sendMessage(name + "님이 나갔습니다.");
+				sendMessage(name + "님이 나갔0.습니다.");
 				
 				// Map에서 해당 대화명을 삭제한다.
 				clients.remove(name);

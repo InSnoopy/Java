@@ -27,7 +27,8 @@ public class TcpFileServer {
 		try {
 			server = new ServerSocket(7777);
 			System.out.println("서버 준비 완료...");
-			String downDir = "d:/D_Other/";
+//			String downDir = "d:/D_Other/";
+			String downDir = "D:/A_TeachingMaterial/11_vscodeWeb/parkinsoo/images/";
 			
 			File file = null;
 			while(true) {
@@ -41,6 +42,7 @@ public class TcpFileServer {
 				
 				file = new File(downDir + dis.readUTF());
 				
+				// exists메소드를 사용하려고 file을 만들었다.
 				if(!file.exists()) {
 					System.out.println("요청파일(" + file.getName() + ") 존재하지 않음.");
 					dos.writeUTF("요청파일(" + file.getName() + ") 존재하지 않습니다.");
@@ -48,6 +50,7 @@ public class TcpFileServer {
 					dos.close();
 					socket.close();
 					
+					// 다시 위로 올려서 파일 오기전까지 기다린다.
 					continue;
 				}else {
 					dos.writeUTF("OK"); // 요청파일 확인했음을 알려줌.
@@ -56,7 +59,9 @@ public class TcpFileServer {
 				
 				fis = new FileInputStream(file);
 				
+				// 보조 스트림
 				BufferedInputStream bis = new BufferedInputStream(fis);
+				// 파일을 읽어서 상대방에게 보내고 있다.
 				BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream());
 				
 				int data = 0;
@@ -77,6 +82,12 @@ public class TcpFileServer {
 		}catch(IOException ex) {
 			ex.printStackTrace();
 		}
+		
+	}
+	
+	public static void main(String[] args) {
+		
+		new TcpFileServer().serverStart();
 		
 	}
 	

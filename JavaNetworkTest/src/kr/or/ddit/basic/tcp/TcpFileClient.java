@@ -18,21 +18,24 @@ public class TcpFileClient {
 	
 	public void clientStart() {
 		
-		File file = new File("d:/D_Other/down/aaa.jpg");
+		File file = new File("d:/D_Other/br5.jpg");
 		
 		try {
 			
 			socket = new Socket("192.168.35.90", 7777);
 			// 소켓접속이 성공하면 받고 싶은 파일명을 보낸다.
 			dos = new DataOutputStream(socket.getOutputStream());
+			// file 이름을 보낸다. (존재하는지 체크하기 위해서)
 			dos.writeUTF(file.getName());
 			
 			dis = new DataInputStream(socket.getInputStream());
 			
+			// 답변 받은 메시지를 담아서 "OK"라면 파일이 있다라는 뜻
 			String resultMsg = dis.readUTF();
 			if(resultMsg.equals("OK")) {
 				fos = new FileOutputStream(file);
 				
+				// 파일 읽어 온다.
 				BufferedInputStream bis = new BufferedInputStream(socket.getInputStream());
 				BufferedOutputStream bos = new BufferedOutputStream(fos);
 				
@@ -60,5 +63,12 @@ public class TcpFileClient {
 		
 		
 	}
+	
+	
+	public static void main(String[] args) {
+		new TcpFileClient().clientStart();
+		
+	}
+
 	
 }
