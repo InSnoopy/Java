@@ -2,11 +2,15 @@ package kr.or.ddit.basic.http;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.URLConnection;
+import java.net.URLDecoder;
 import java.util.StringTokenizer;
 
 /**
@@ -84,6 +88,7 @@ public class MyHTTPServer {
 				}
 				
 				// 헤더 정보(Header)
+				// status line + header
 				String reqHeaderStr = sb.toString();
 				
 				printMsg("요청헤더 : ", reqHeaderStr);
@@ -107,6 +112,44 @@ public class MyHTTPServer {
 				
 				System.out.println("reqPAth => " + reqPath);
 				
+				// URL 디코딩 처리(한글깨짐문제 해결)
+				reqPath = URLDecoder.decode(reqPath, encoding);
+				
+				// 현재 프로젝트부터 시작
+				String filePath = "./WebContent" + reqPath;
+				
+				// 해당 파일 이름을 이용하여 Content-type 정보 추출하기
+				// MIME 타입
+				// body안에 정보가 어떤 타입인지 contentType에 넣어논다.
+				// body안에 어떤게 들어 있는지 확인하기 위한 MIME 타입
+				String contentType = URLConnection.getFileNameMap().getContentTypeFor(filePath);
+				
+				// CSS파일인 경우 인식이 안되서 추가함.
+				if(contentType == null && filePath.endsWith(".css")) {
+					contentType = "text/css";
+				}
+				
+				File file = new File(filePath);
+				if(!file.exists()) {
+					makeErrorPage(out, 404, "Not Found");
+					return;
+				}
+				
+				byte[] body = makeResponseBody(filePath);
+				
+				byte[] header = makeResponseHeader(body.length, contentType); 
+				
+				// 응답 헤더 데이터 보내기
+				out.write(header);
+				
+				// 응답 내용 보내기 전 반드시 Empty Line을 보내야 한다.
+				// \r\n -> 운영체제가 어떤 운영체제든간에 다 한줄씩 먹게 된다.
+				out.write("\r\n\r\n".getBytes());
+				
+				// 응답 내용 데이터 보내기
+				out.write(body);
+				out.flush();
+				
 			}catch(IOException ex) {
 				ex.printStackTrace();
 			}finally {
@@ -119,6 +162,7 @@ public class MyHTTPServer {
 			
 		}
 
+
 		private void printMsg(String title, String msg) {
 			System.out.println("============================");
 			System.out.println(title);
@@ -128,6 +172,75 @@ public class MyHTTPServer {
 		}
 		
 	}
+	
+	// error 페이지를 만들어주는 메서드
+	/**
+	 * 에러 페이지 생성
+	 * @param out 출력용 스트림
+	 * @param statusCode 상태코드
+	 * @param errMsg 에러메시지
+	 */
+	private void makeErrorPage(OutputStream out, int statusCode, String errMsg) {
+		String statusLine = "HTTP/1.1" + " " + statusCode + " " + errMsg;
+		
+		try {
+			
+			out.write(statusLine.getBytes());
+			out.flush();
+			
+		}catch(IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	
+	/**
+	 * 응답헤더 생성하기
+	 * @param length 응답내용 크기
+	 * @param contentType MIME타입
+	 * @return 바이트 배열
+	 */
+	private byte[] makeResponseHeader(int length, String contentType) {
+		String header = "HTTP/1.1 200 OK\r\n"
+				+ "Server: MyHTTPServer 1.0\r\n"
+				+ "Content-length: " + length + "\r\n"
+				+ "Content-type: " + contentType
+				+ "; charset=" + this.encoding;
+		
+		return header.getBytes();
+	}
+
+	/**
+	 * 응답 내용 생성하기
+	 * @param filePath 응답으로 사용할 파일경로
+	 * @return 바이트배열 데이터
+	 */
+	private byte[] makeResponseBody(String filePath) {
+		
+		FileInputStream fis = null;
+		byte[] data = null;
+		
+		try {
+			
+			File file = new File(filePath);
+			data = new byte[(int) file.length()];
+			
+			fis = new FileInputStream(file);
+			fis.read(data);
+			
+		}catch(IOException ex) {
+			ex.printStackTrace();
+		}finally {
+			try {
+				fis.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return data;
+	}
+
 	
 	public static void main(String[] args) {
 		new MyHTTPServer().start();
