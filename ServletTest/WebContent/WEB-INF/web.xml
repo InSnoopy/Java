@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+  <display-name>ServletTest</display-name>
+
+	<servlet>
+		<servlet-name>T01ServletLifeCycle</servlet-name>
+		<servlet-class>kr.or.ddit.basic.T01ServletLifeCycle</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>T01ServletLifeCycle</servlet-name>
+		<url-pattern>/T01ServletLifeCycle</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>T02ServletTest</servlet-name>
+		<servlet-class>kr.or.ddit.basic.T02ServletTest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>T02ServletTest</servlet-name>
+		<url-pattern>/T02ServletTest</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>T03ServletParameterTest</servlet-name>
+		<servlet-class>kr.or.ddit.basic.T03ServletParameterTest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>T03ServletParameterTest</servlet-name>
+		<url-pattern>/T03ServletParameterTest</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>T04ErrorHandler</servlet-name>
+		<servlet-class>kr.or.ddit.basic.T04ErrorHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>T04ErrorHandler</servlet-name>
+		<url-pattern>/T04ErrorHandler</url-pattern>
+	</servlet-mapping>
+
+	<error-page>
+		<!-- 500이라는 에러가 발생했다면 T04ErrorHandler에 전달해줘~ 라는 뜻 -->
+        <error-code>500</error-code>
+		<!-- error-code뿐만 아니라 exception-type도 가능 여러가지도 가능 -->
+        <!-- <exception-type>javax.servlet.error.serveletException</exception-type> -->
+		<location>/T04ErrorHandler</location>
+	</error-page>
+
+</web-app>
