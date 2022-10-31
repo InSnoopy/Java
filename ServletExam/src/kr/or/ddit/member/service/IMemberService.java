@@ -25,6 +25,13 @@ public interface IMemberService {
 	public boolean checkMember(String memId);
 	
 	/**
+	 * 주어진 회원 ID에 해당하는 회원정보 알아내기 위한 메서드
+	 * @param memId 확인 대상 회원 ID
+	 * @return 해당 회원 ID에 맞는 회원 정보
+	 */
+	public MemberVO getMember(String memId);
+	
+	/**
 	 * 회원정보를 수정하기 위한 메서드
 	 * @param mv update할 회원정보가 들어있는 MemberVO객체
 	 * @return 작업성공 : 1, 작업실패: 0

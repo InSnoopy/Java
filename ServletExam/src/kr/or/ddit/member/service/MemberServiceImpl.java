@@ -66,6 +66,11 @@ public class MemberServiceImpl implements IMemberService{
 		return memList;
 	}
 
+	@Override
+	public MemberVO getMember(String memId) {
+		return memDao.getMember(memId);
+	}
+
 	
 	
 }
