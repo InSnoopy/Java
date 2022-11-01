@@ -6,6 +6,9 @@
 <%
 
 	List<MemberVO> memList = (List<MemberVO>) request.getAttribute("memList");
+	
+	String msg = session.getAttribute("msg") == null ? "" : (String) session.getAttribute("msg");
+	session.removeAttribute("msg");
 
 %>
 
@@ -54,6 +57,14 @@
 	</tr>
 
 	</table>
-
+<% 
+	if(msg.equals("성공")){
+%>
+<script>
+	alert('정상적으로 처리되었습니다.');
+</script>
+<%
+	}
+%>	
 </body>
 </html>

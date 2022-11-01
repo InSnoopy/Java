@@ -38,6 +38,7 @@ public class ListMemberController extends HttpServlet{
 		// 너가 해 ~~ 이 역할 너가 하라고~~ 던지는게 포어드
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/member/list.jsp");
 		dispatcher.forward(req, resp);
+		// 포어드는 여러 포어드를 통해서 최종 결과만이 클라이언트에 응답한다.
 		
 	}
 	
