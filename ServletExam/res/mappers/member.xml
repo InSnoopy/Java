@@ -31,11 +31,11 @@
 	<insert id="insertMember" parameterType="kr.or.ddit.member.vo.MemberVO">
 	
 		insert into mymember
-		(MEM_ID, MEM_NAME, MEM_TEL, MEM_ADDR, REG_DT)
+		(MEM_ID, MEM_NAME, MEM_TEL, MEM_ADDR, REG_DT, ATCH_FILE_ID)
 		<!-- mv.getMemId()라는게 메소드가 있을것이다 하고 -->
 		<!-- #{memId}에 가져온다. -->
 		<!-- 리플레이스가 된다. 대체한다. -->
-		values (#{memId}, #{memName}, #{memTel}, #{memAddr}, sysdate)
+		values (#{memId}, #{memName}, #{memTel}, #{memAddr}, sysdate, #{atchFileId})
 	
 	</insert>
 	
@@ -44,7 +44,8 @@
 		UPDATE MYMEMBER
 		SET MEM_NAME = #{memName},
 		MEM_TEL = #{memTel},
-	    MEM_ADDR = #{memAddr}
+	    MEM_ADDR = #{memAddr},
+	    ATCH_FILE_ID = #{atchFileId}
 		WHERE MEM_ID = #{memId}
 	
 	</update>
@@ -83,7 +84,8 @@
  		SELECT mem_id as memId,
 		 	   mem_name as memName,
 		  	   mem_tel as memTel,
-		 	   mem_addr as memAddr
+		 	   mem_addr as memAddr,
+		 	   atch_file_id as atchFileId
  	      FROM MYMEMBER
  	     WHERE mem_id = #{memId}
 	
@@ -103,6 +105,7 @@
 		<result column="mem_name" property="memName"/>
 		<result column="mem_tel" property="memTel"/>
 		<result column="mem_addr" property="memAddr"/>
+		<result column="atch_file_id" property="atchFileId"/>
 	
 	</resultMap>
 	<!-- 동적쿼리 (다이나믹쿼리) 만들기 -->

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- ex) 패키지라는 것을 통해서 같은 class명을 다른 패키지에 쓸 수 있다. -->
+<!-- 쿼리 아이디가 중복될 수 있다. 이걸 막는 방법이 namespace == 패키지와 비슷한 역할 -->
+<mapper namespace="atchFile"> 
+
+	<insert id="insertAtchFile" parameterType="AtchFileVO">
+		<!-- 키값을 추출해준다. -->
+		<!-- AtchFileVO안에 있는 atchFileId key -->
+		<!-- 밑에 쿼리가 실행가기전에 -->
+		<!-- 시퀀스 값을 AtchFileVO안에 있는 atchFileId에 넣어 논다. -->
+		<selectKey keyProperty="atchFileId" resultType="long" order="BEFORE">
+			select ATCH_FILE_SEQ.nextval from dual
+		</selectKey>
+	
+		insert into ATCH_FILE
+		(ATCH_FILE_ID, CREAT_DT, USE_AT)
+		values (#{atchFileId}, sysdate, 'Y')
+	</insert>
+	
+	
+	<insert id="insertAtchFileDetail">
+
+		insert into atch_file_detail
+		(
+			ATCH_FILE_ID,
+			FILE_SN,
+			FILE_STRE_COURS,
+			STRE_FILE_NM,
+			ORIGNL_FILE_NM,
+			FILE_EXTSN,
+			FILE_CN,
+			FILE_SIZE
+		)
+			values	
+		(
+		#{atchFileId }
+			,(select nvl(max(file_sn), 0) + 1
+				from atch_file_detail
+				where atch_file_id = #{atchFileId})
+			,#{fileStreCours }
+			,#{streFileNm }
+			,#{orignlFileNm }
+			,#{fileExtsn }
+			,#{fileCn }
+			,#{fileSize }
+		)
+	
+	</insert>
+	
+	
+	<select id="getAtchFileList" resultType="AtchFileVO">
+		
+		select * from atch_file_detail
+		where atch_file_id = #{atchFileId}
+		
+	</select>
+	
+	
+	<select id="getAtchFileDetail" resultType="AtchFileVO">
+
+		select * from atch_file_detail
+		where atch_file_id = #{atchFileId}
+		and file_sn = #{fileSn}
+		
+	</select>
+
+</mapper>
