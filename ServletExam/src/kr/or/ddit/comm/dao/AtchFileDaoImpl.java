@@ -36,7 +36,7 @@ public class AtchFileDaoImpl extends MyBatisDAO implements IAtchFileDao{
 	@Override
 	public AtchFileVO getAtchFileDetail(AtchFileVO atchFileVO) {
 		
-		return selectOne("atchFile.getAtchFileDetail","atchFileVO");
+		return selectOne("atchFile.getAtchFileDetail", atchFileVO);
 	}
 
 }

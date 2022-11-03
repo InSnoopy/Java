@@ -59,6 +59,8 @@ public class InsertMemberController extends HttpServlet {
 		
 		int cnt = memService.registMember(mv);
 		
+		System.out.println(mv);
+		
 		String msg = "";
 		if(cnt > 0) {
 			msg = "성공";

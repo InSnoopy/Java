@@ -21,30 +21,31 @@
 	
 	<insert id="insertAtchFileDetail">
 
+
 		insert into atch_file_detail
-		(
-			ATCH_FILE_ID,
-			FILE_SN,
-			FILE_STRE_COURS,
-			STRE_FILE_NM,
-			ORIGNL_FILE_NM,
-			FILE_EXTSN,
-			FILE_CN,
-			FILE_SIZE
-		)
-			values	
-		(
-		#{atchFileId }
-			,(select nvl(max(file_sn), 0) + 1
-				from atch_file_detail
-				where atch_file_id = #{atchFileId})
-			,#{fileStreCours }
-			,#{streFileNm }
-			,#{orignlFileNm }
-			,#{fileExtsn }
-			,#{fileCn }
-			,#{fileSize }
-		)
+	   (
+	    ATCH_FILE_ID
+	   ,FILE_SN
+	   ,FILE_STRE_COURS
+	   ,STRE_FILE_NM
+	   ,ORIGNL_FILE_NM
+	   ,FILE_EXTSN
+	   ,FILE_CN
+	   ,FILE_SIZE
+	   )
+	   values
+	   (
+	    #{atchFileId}
+	   ,(select nvl(max(file_sn), 0) + 1
+	     from atch_file_detail
+	     where atch_file_id = #{atchFileId})
+	   ,#{fileStreCours}
+	   ,#{streFileNm}
+	   ,#{orignlFileNm}
+	   ,#{fileExtsn}
+	   ,#{fileCn}
+	   ,#{fileSize}
+	   )
 	
 	</insert>
 	
